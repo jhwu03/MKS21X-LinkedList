@@ -2,13 +2,17 @@ public class Node{
   private int data;
   private Node next,prev;
 
-public Node(int value, Node nxt, Node prv ) {
+  public Node(int value){
+    this.data = value;
+  }
+
+  public Node(int value, Node nxt, Node prv ) {
     data = value;
     next = nxt;
     prev = prv;
   }
 
-public int getData() {
+  public int getData() {
     return data;
   }
 
