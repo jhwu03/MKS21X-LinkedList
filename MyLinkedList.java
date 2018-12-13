@@ -33,11 +33,13 @@ public class MyLinkedList{
   }
 
    public String toString(){
+     Node i = start;
      String str = "[";
      if(start == null){
        return "[]";
      }
      for (int n = 0; n < size; n++){
+       while(i.hasNext())
      }
      return str;
    }

@@ -28,8 +28,11 @@ public class Node{
     this.next = newNext;
   }
 
-  public void setValue(int newValue){
+  public void setData(int newValue){
     this.data = newValue;
+  }
+  public boolean hasNext(){
+    return this.getNext() != null;
   }
 
   public void setPrev(Node newPrev) {
