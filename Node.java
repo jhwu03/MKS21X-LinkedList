@@ -12,15 +12,15 @@ public class Node{
     prev = prv;
   }
 
-  public int getData() {
+  public int gData() {
     return data;
   }
 
-  public Node getNext() {
+  public Node Next() {
     return next;
   }
 
-  public Node getPrev() {
+  public Node Prev() {
     return prev;
   }
 

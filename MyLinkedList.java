@@ -5,8 +5,6 @@ public class MyLinkedList{
 
   public MyLinkedList(){
     size = 0;
-    start = null;
-    end = null;
   }
 
   public int size(){
@@ -33,15 +31,19 @@ public class MyLinkedList{
   }
 
    public String toString(){
-     Node i = start;
+     Node i = this.start;
      String str = "[";
-     if(start == null){
+     if(this.start == null){
        return "[]";
      }
      for (int n = 0; n < size; n++){
-       while(i.hasNext())
+       while(i.hasNext()){
+         str = str + i.getData();
+         i = i.Next();
+       }
      }
      return str;
    }
+
 
 }
