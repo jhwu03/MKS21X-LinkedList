@@ -42,7 +42,14 @@ public class MyLinkedList{
          i = i.Next();
        }
      }
-     return str;
+     return str + "]";
+   }
+
+   public int get(int index){
+     if (index > this.size - 1){
+       throw indexOutOfBoundsException;
+     }
+
    }
 
 

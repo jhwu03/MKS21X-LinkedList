@@ -12,7 +12,7 @@ public class Node{
     prev = prv;
   }
 
-  public int gData() {
+  public int getData() {
     return data;
   }
 
@@ -32,7 +32,7 @@ public class Node{
     this.data = newValue;
   }
   public boolean hasNext(){
-    return this.getNext() != null;
+    return this.Next() != null;
   }
 
   public void setPrev(Node newPrev) {
