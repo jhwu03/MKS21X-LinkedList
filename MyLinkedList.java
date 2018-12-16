@@ -70,4 +70,15 @@ public class MyLinkedList{
      return org;
    }
 
+   public boolean contains(Integer value){
+     Node i = start;
+     for(int n = 0; n < this.size() ; n++){
+       if(i.getData() == value){
+         return true;
+       }
+       i = i.Next();
+     }
+     return false;
+   }
+
 }
