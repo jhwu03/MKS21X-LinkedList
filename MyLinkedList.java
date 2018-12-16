@@ -13,7 +13,7 @@ public class MyLinkedList{
 
   public boolean add(int value){
     Node n = new Node(value);
-    if (size == 0){
+    if (this.size() == 0){
       n.setNext(null);
       n.setPrev(null);
       size = size + 1;
@@ -31,9 +31,9 @@ public class MyLinkedList{
   }
 
    public String toString(){
-     Node i = this.start;
+     Node i = start;
      String str = "[";
-     if(this.start == null){
+     if(start == null){
        return "[]";
      }
      for (int n = 0; n < size; n++){
@@ -46,9 +46,14 @@ public class MyLinkedList{
    }
 
    public int get(int index){
-     if (index > this.size - 1){
-       throw indexOutOfBoundsException;
+     if (index > this.size - 1 || index < 0){
+       throw new IndexOutOfBoundsException();
      }
+     Node i = start;
+     for(int n = 0; n < index; n++){
+       i = i.Next();
+     }
+     return i.getData();
 
    }
 
