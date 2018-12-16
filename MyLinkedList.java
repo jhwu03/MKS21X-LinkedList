@@ -81,4 +81,15 @@ public class MyLinkedList{
      return false;
    }
 
+   public int indexOf(Integer value){
+     Node i = start;
+     for(int n = 0; n < this.size() ; n++){
+       if(i.getData() == value){
+         return n;
+       }
+       i = i.Next();
+     }
+     return -1;
+   }
+
 }
