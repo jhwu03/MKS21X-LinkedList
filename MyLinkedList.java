@@ -57,5 +57,17 @@ public class MyLinkedList{
 
    }
 
+   public Integer set(int index, Integer value){
+     if (index > this.size - 1 || index < 0){
+       throw new IndexOutOfBoundsException();
+     }
+     Node i = start;
+     for(int n = 0; n < index; n++){
+       i = i.Next();
+     }
+     int org = i.getData();
+     i.setData(value);
+     return org;
+   }
 
 }
