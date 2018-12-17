@@ -10,7 +10,7 @@ public class MyLinkedList{
   public int size(){
     return size;
   }
-
+//Adds the given value to the end of the ArrayList
   public boolean add(int value){
     Node n = new Node(value);
     if (size == 0){
@@ -20,7 +20,7 @@ public class MyLinkedList{
       start = n;
       end = n;
       return true;
-    }else{
+    }else{ //if the length is not 0, that means we have to set the "old" end as the new node's previous
       n.setPrev(end);
       n.setNext(null);
       size = size + 1;
@@ -45,24 +45,28 @@ public class MyLinkedList{
 
    public int get(int index){
      if (index > size - 1 || index < 0){
+       //if the index is out of bounds, it throws exception
        throw new IndexOutOfBoundsException();
      }
      Node i = start;
      for(int n = 0; n < index; n++){
        i = i.Next();
      }
+     //gets the data of the Node at index i
      return i.getData();
 
    }
 
    public Integer set(int index, Integer value){
      if (index > size - 1 || index < 0){
+       //if the index is out of bounds, it throws exception
        throw new IndexOutOfBoundsException();
      }
      Node i = start;
      for(int n = 0; n < index; n++){
        i = i.Next();
      }
+     //sets the data of the Node at index i
      int org = i.getData();
      i.setData(value);
      return org;
@@ -72,6 +76,7 @@ public class MyLinkedList{
      Node i = start;
      for(int n = 0; n < size ; n++){
        if(i.getData() == value){
+          //if value is equal to one number in the list, end here
          return true;
        }
        i = i.Next();
@@ -87,6 +92,7 @@ public class MyLinkedList{
        }
        i = i.Next();
      }
+     //returns -1 if the loop hasn't found the value
      return -1;
    }
 
@@ -105,17 +111,21 @@ public class MyLinkedList{
 
    public void add(int index,Integer value) {
      if(index > size || index < 0){
+       //if the index is out of bounds, throw exception
        throw new IndexOutOfBoundsException();
      }
      Node NewNode = new Node(value);
+     //if the index is at the end, just add to the end with the other method
      if(index == size){
        add(value);
+     //if index is 0 add it to the start and push the old start back
      }else if(index == 0){
        Node old = getNthNode(index);
        start = NewNode;
        NewNode.setNext(old);
        old.setPrev(NewNode);
        size = size + 1;
+     //otherwise just adjust nearby nodes to include the new one
      }else{
        Node old = getNthNode(index);
        old.setPrev(NewNode);
@@ -129,20 +139,24 @@ public class MyLinkedList{
 
    public Integer remove(int index) {
     if (index < 0 || index >= size()) {
+      //if the index is out of bounds, throw exception
       throw new IndexOutOfBoundsException();
     }
     Node removeNode = getNthNode(index);
     Integer value = removeNode.getData();
     Node previous = removeNode.Prev();
     Node after = removeNode.Next();
+    //if size is 1 just make both start and end null
     if(index == 0 && size == 1){
       start = null;
       end = null;
       size = size - 1;
+    //if you start at the front you change the old first node to point to the new one
     }else if(index == 0){
       start = after;
       after.setPrev(null);
       size = size - 1;
+    //if its in the end make the revious node point to null since the last node is removed
     }else if (index == size - 1){
       end = previous;
       previous.setNext(null);
@@ -154,36 +168,8 @@ public class MyLinkedList{
     }
     return value;
    }
-//    public Integer remove(int index) {
-//   if (index < 0 || index >= size()) {
-//     throw new IndexOutOfBoundsException();
-//   }
-//   //node being removed
-//   Node t = getNthNode(index);
-//   //store data being removed
-//   Integer value = t.getData();
-//   //special case if removed is the first in the list and its the only value
-//   if(index == 0 && size() == 1) {
-//     start = null;
-//     end = null;
-//   //special case if first value is removed
-//   } else if (index == 0) {
-//     start = t.Next();
-//     t.Next().setPrev(null);
-//   //special case if removed is last in the list
-//   } else if (index == size() - 1) {
-//     end = t.Prev();
-//     t.Prev().setNext(null);
-//   } else {
-//     //value is removed by resetting the next and prev of its next and prev nodes
-//     t.Next().setPrev(t.Prev());
-//     t.Prev().setNext(t.Next());
-//   }
-//   size--;
-//   return value;
-// }
-
    public boolean remove(Integer value){
+     //if it contains the value remove it else return false
      if(contains(value)){
        remove(indexOf(value));
        return true;
