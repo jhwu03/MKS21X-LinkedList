@@ -13,7 +13,7 @@ public class MyLinkedList{
 
   public boolean add(int value){
     Node n = new Node(value);
-    if (this.size() == 0){
+    if (size == 0){
       n.setNext(null);
       n.setPrev(null);
       size = size + 1;
@@ -46,7 +46,7 @@ public class MyLinkedList{
    }
 
    public int get(int index){
-     if (index > this.size - 1 || index < 0){
+     if (index > size - 1 || index < 0){
        throw new IndexOutOfBoundsException();
      }
      Node i = start;
@@ -58,7 +58,7 @@ public class MyLinkedList{
    }
 
    public Integer set(int index, Integer value){
-     if (index > this.size - 1 || index < 0){
+     if (index > size - 1 || index < 0){
        throw new IndexOutOfBoundsException();
      }
      Node i = start;
@@ -72,7 +72,7 @@ public class MyLinkedList{
 
    public boolean contains(Integer value){
      Node i = start;
-     for(int n = 0; n < this.size() ; n++){
+     for(int n = 0; n < size ; n++){
        if(i.getData() == value){
          return true;
        }
@@ -83,7 +83,7 @@ public class MyLinkedList{
 
    public int indexOf(Integer value){
      Node i = start;
-     for(int n = 0; n < this.size() ; n++){
+     for(int n = 0; n < size ; n++){
        if(i.getData() == value){
          return n;
        }
@@ -110,7 +110,7 @@ public class MyLinkedList{
        throw new IndexOutOfBoundsException();
      }
      if(index == size){
-       this.add(index);
+       add(index);
      }
      Node NewNode = new Node(value);
      if(index == 0){
@@ -122,12 +122,51 @@ public class MyLinkedList{
      }else{
        Node old = getNthNode(index);
        NewNode.setNext(old);
-       NewNode.setPrev(old.Prev()); //we didn't update shiftedNode's prev yet, so this sets newN's prev to two Nodes back from shiftedNode
-       old.Prev().setNext(NewNode); //the Node two nodes back from shiftedNode (since it still isn't updated yet) sets the next one to be newN
-       old.setPrev(NewNode); //now we updated shiftedNode's prev
+       NewNode.setPrev(old.Prev());
+       old.Prev().setNext(NewNode);
+       old.setPrev(NewNode);
        size = size + 1;
      }
 
+   }
+
+   public Integer remove(int index) {
+    if (index < 0 || index >= size()) {
+      throw new IndexOutOfBoundsException();
+    }
+    Node removeNode = getNthNode(index);
+    Integer value = removeNode.getData();
+    Node previous = removeNode.Prev();
+    Node after = removeNode.Next();
+    int n = removeNode.getData();
+    if(index == 0){
+      if(size == 1){
+        start = null;
+        end = null;
+        size = size - 1;
+      }else{
+        start = previous;
+        after.setPrev(null);
+        size = size - 1;
+      }
+    }else if (index == size - 1){
+      end = previous;
+      previous.setNext(null);
+      size = size - 1;
+    }else{
+      after.setPrev(previous);
+      previous.setNext(after);
+      size = size - 1;
+    }
+    return value;
+   }
+
+   public boolean remove(Integer value){
+     if(contains(value)){
+       remove(indexOf(value));
+       return true;
+     }
+     return false;
    }
 
 }
