@@ -92,4 +92,42 @@ public class MyLinkedList{
      return -1;
    }
 
+   private Node getNthNode(int index){
+     int n = 0;
+     Node i = start;
+     if (i != null) {
+      //checks up to the correct index
+      while (n < index) {
+        i = i.Next();
+        n++;
+      }
+    }
+    return i;
+   }
+
+   public void add(int index,Integer value) {
+     if(index > size || index < 0){
+       throw new IndexOutOfBoundsException();
+     }
+     if(index == size){
+       this.add(index);
+     }
+     Node NewNode = new Node(value);
+     if(index == 0){
+       Node old = getNthNode(index);
+       start = NewNode;
+       NewNode.setNext(old);
+       old.setPrev(NewNode);
+       size = size + 1;
+     }else{
+       Node old = getNthNode(index);
+       NewNode.setNext(old);
+       NewNode.setPrev(old.Prev()); //we didn't update shiftedNode's prev yet, so this sets newN's prev to two Nodes back from shiftedNode
+       old.Prev().setNext(NewNode); //the Node two nodes back from shiftedNode (since it still isn't updated yet) sets the next one to be newN
+       old.setPrev(NewNode); //now we updated shiftedNode's prev
+       size = size + 1;
+     }
+
+   }
+
 }
