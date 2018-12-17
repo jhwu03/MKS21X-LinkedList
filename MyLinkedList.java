@@ -33,17 +33,15 @@ public class MyLinkedList{
    public String toString(){
      Node i = start;
      String str = "[";
-     if(start == null){
-       return "[]";
+     while (i != null){
+       str = str + i.getData();
+     if (i.Next() != null){
+       str= str + ", ";
      }
-     for (int n = 0; n < size; n++){
-       while(i.hasNext()){
-         str = str + i.getData();
-         i = i.Next();
-       }
-     }
-     return str + "]";
+     i = i.Next();
    }
+   return str + "]";
+ }
 
    public int get(int index){
      if (index > size - 1 || index < 0){
@@ -109,11 +107,10 @@ public class MyLinkedList{
      if(index > size || index < 0){
        throw new IndexOutOfBoundsException();
      }
-     if(index == size){
-       add(index);
-     }
      Node NewNode = new Node(value);
-     if(index == 0){
+     if(index == size){
+       add(value);
+     }else if(index == 0){
        Node old = getNthNode(index);
        start = NewNode;
        NewNode.setNext(old);
@@ -121,10 +118,10 @@ public class MyLinkedList{
        size = size + 1;
      }else{
        Node old = getNthNode(index);
-       NewNode.setNext(old);
-       NewNode.setPrev(old.Prev());
-       old.Prev().setNext(NewNode);
        old.setPrev(NewNode);
+       NewNode.setPrev(old.Prev());
+       NewNode.setNext(old);
+       old.Prev().setNext(NewNode);
        size = size + 1;
      }
 
@@ -138,17 +135,14 @@ public class MyLinkedList{
     Integer value = removeNode.getData();
     Node previous = removeNode.Prev();
     Node after = removeNode.Next();
-    int n = removeNode.getData();
-    if(index == 0){
-      if(size == 1){
-        start = null;
-        end = null;
-        size = size - 1;
-      }else{
-        start = previous;
-        after.setPrev(null);
-        size = size - 1;
-      }
+    if(index == 0 && size == 1){
+      start = null;
+      end = null;
+      size = size - 1;
+    }else if(index == 0){
+      start = after;
+      after.setPrev(null);
+      size = size - 1;
     }else if (index == size - 1){
       end = previous;
       previous.setNext(null);
@@ -160,6 +154,34 @@ public class MyLinkedList{
     }
     return value;
    }
+//    public Integer remove(int index) {
+//   if (index < 0 || index >= size()) {
+//     throw new IndexOutOfBoundsException();
+//   }
+//   //node being removed
+//   Node t = getNthNode(index);
+//   //store data being removed
+//   Integer value = t.getData();
+//   //special case if removed is the first in the list and its the only value
+//   if(index == 0 && size() == 1) {
+//     start = null;
+//     end = null;
+//   //special case if first value is removed
+//   } else if (index == 0) {
+//     start = t.Next();
+//     t.Next().setPrev(null);
+//   //special case if removed is last in the list
+//   } else if (index == size() - 1) {
+//     end = t.Prev();
+//     t.Prev().setNext(null);
+//   } else {
+//     //value is removed by resetting the next and prev of its next and prev nodes
+//     t.Next().setPrev(t.Prev());
+//     t.Prev().setNext(t.Next());
+//   }
+//   size--;
+//   return value;
+// }
 
    public boolean remove(Integer value){
      if(contains(value)){
