@@ -177,4 +177,20 @@ public class MyLinkedList{
      return false;
    }
 
+   public void extend(MyLinkedList other){
+     if(this.size == 0){
+       start = other.start;
+     }else{
+       this.end.setNext(other.start);
+     }
+     if (other.size == 0){
+       other.end = end;
+     }else{
+       end.setNext(other.start);
+       other.start.setPrev(end);
+     }
+     size = size + other.size;
+     end = other.end;
+   }
+
 }
